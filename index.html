@@ -123,6 +123,95 @@ func main() {
           </section>
         </section>
 
+        <section>
+          <section>
+            <h1>The awesome</h1>
+          </section>
+          <section>
+            <h2>semi-colons<br/> only when absolutely necessary</h2>
+            <pre><code>package main
+
+import (
+  "fmt"
+  "net/http"
+)
+
+func main() {
+  http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, World!")
+  })
+  http.ListenAndServe(":8000", nil)
+}
+</code></pre>
+          </section>
+          <section>
+            <h2>short assignment</h2>
+<pre><code>i := 64
+f := 3.14
+str := "hello, world!"</code></pre>
+          <p>compiler type inference FTW!</p>
+          </section>
+          <section>
+            <h2>only one loop</h2>
+<pre><code>for i := 0; i < 10; i++ {
+  // basic iteration
+}</code></pre>
+<pre><code>for k, v = range hashmap {
+  // iterate over a range
+}</code></pre>
+<pre><code>for {
+  // a while loop
+}</code></pre>
+          </section>
+          <section>
+            <h2>Really f***ing clear types</h2>
+<pre><code>uint8       all unsigned  8-bit integers (0 to 255)
+uint16      all unsigned 16-bit integers (0 to 65535)
+uint32      all unsigned 32-bit integers (0 to 4294967295)
+uint64      all unsigned 64-bit integers
+
+int8        all signed  8-bit integers (-128 to 127)
+int16       all signed 16-bit integers (-32768 to 32767)
+int32       all signed 32-bit integers
+int64       all signed 64-bit integers
+
+float32     all IEEE-754 32-bit floating-point numbers
+float64     all IEEE-754 64-bit floating-point numbers
+complex64   all complex numbers, float32 real and imaginary
+complex128  all complex numbers, float64 real and imaginary
+byte        alias for uint8
+rune        alias for int32</code></pre>
+          <p>also</p>
+<pre><code>uint     either 32 or 64 bits
+int      same size as uint
+uintptr</code></pre>
+          </section>
+          <section>
+            <h2>multiple return values</h2>
+<pre><code>ok, err := possibleErrorMethod()
+if err != nil {
+  log.Fatal(err)
+  return
+}
+</code></pre>
+          </section>
+                    <section>
+            <h2>fallthrough</h2>
+            <p>Breaks are implicit, fallthrough explicitly</p>
+<pre><code>i := 3
+switch i {
+  case i > 1:
+    fmt.PrintLn("greater than 1")
+    fallthrough
+  case i > 2:
+    fmt.PrintLn("greater than 2")
+    fallthrough
+  case i == 3:
+    fmt.PrintLn("exactly 3")
+}</code></pre>
+          </section>
+        </section>
+
       </div>
 
     </div>
