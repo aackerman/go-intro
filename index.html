@@ -162,6 +162,7 @@ str := "hello, world!"</code></pre>
 <pre><code>for {
   // a while loop
 }</code></pre>
+          <p>Also, parens only when necessary</p>
           </section>
           <section>
             <h2>Really f***ing clear types</h2>
@@ -191,11 +192,11 @@ uintptr</code></pre>
 <pre><code>ok, err := possibleErrorMethod()
 if err != nil {
   log.Fatal(err)
-  return
+  return err
 }
 </code></pre>
           </section>
-                    <section>
+          <section>
             <h2>fallthrough</h2>
             <p>Breaks are implicit, fallthrough explicitly</p>
 <pre><code>i := 3
@@ -209,6 +210,58 @@ switch i {
   case i == 3:
     fmt.PrintLn("exactly 3")
 }</code></pre>
+          </section>
+          <section>
+            <h2>Go knows about source control</h2>
+            <p>Git, Mercurial, Subversion, Bazaar</p>
+<pre><code>import "github.com/user/project"
+import "bitbucket.org/user/project"
+import "code.google.com/p/project"
+import "launchpad.net/project"</code></pre>
+          <p>Import directly from your repo, Go will figure it out</p>
+          </section>
+          <section>
+            <h2>Gofmt yourself</h2>
+            <p>Forget about formatting your code.<br/>The computer will do it for you.</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>The really awesome</h1>
+          </section>
+          <section>
+            <h2>Concurrency primatives</h2>
+<pre><code>func even() {
+  for i := 0; i < 100; i++ {
+    if i % 2 == 0 && i != 0 { fmt.Println("even") }
+    if i == 0 { fmt.Println("zero") }
+    time.Sleep(1 * time.Second)
+  }
+}
+func odd() {
+  for i := 0; i < 100; i++ {
+    if (i + 1) % 2 == 0 { fmt.Println("odd") }
+    time.Sleep(1 * time.Second)
+  }
+}
+func main() {
+  go even()
+  odd()
+}</code></pre>
+          </section>
+          <section>
+            <h2>Defer</h2>
+<pre><code>file, err := os.Open("file.go")
+if err != nil {
+  log.Fatal(err)
+}
+defer file.close()
+
+// other code
+
+return retval
+</code></pre>
           </section>
         </section>
 
