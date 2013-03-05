@@ -45,11 +45,10 @@
 
         <section>
           <h2>What is it?</h2>
-          <p>
-            Go is a programming language from Google.
-          </p>
-          <p>Open source, simple, efficient.</p>
-          <p>Started by Rob Pike and Ken Thompson, creators of UTF-8</p>
+          <p>Go is a programming language</p>
+          <p>Started by Rob Pike and Ken Thompson</p>
+          <p class="fragment">Ever heard of UTF-8? Those guys wrote it</p>
+          <p class="fragment">Ken Thompson designed and implemented the original Unix</p>
         </section>
 
         <!-- Example of nested vertical slides -->
@@ -220,11 +219,24 @@ import "code.google.com/p/project"
 import "launchpad.net/project"</code></pre>
           <p>Import directly from your repo, Go will figure it out</p>
           </section>
+          <section>
+          <h2>The blank identifier</h2>
+<pre><code>file, _ := file.Open("file.go")
+fmt.Printf("It probably worked ¯\_(ツ)_/¯");</code></pre>
+          <p class="fragment fade-out">Throw away those pesky errors</p>
+          <p class="fragment"><strong>Don't</strong> throw away those helpful errors</p>
+          <p class="fragment">handle your errors gracefully</p>
+          </section>
         </section>
 
         <section>
           <section>
             <h1>The really awesome</h1>
+          </section>
+          <section>
+            <h2>Clear exports</h2>
+            <p>Capitalized methods and values are public, lowercase private</p>
+            <p>Really useful when marshalling JSON</p>
           </section>
           <section>
             <h2>Concurrency primatives</h2>
@@ -261,11 +273,6 @@ return retval
 </code></pre>
           </section>
           <section>
-            <h2>Clear exports</h2>
-            <p>Capitalized methods and values are public, lowercase private</p>
-            <p>Really useful when marshalling JSON</p>
-          </section>
-          <section>
             <h2>Struct to JSON mapping</h2>
 <pre><code>type Person struct {
   Id int           `json:"id"`
@@ -273,6 +280,28 @@ return retval
   Animal string    `json:"animal"`
 }</code></pre>
           <p>Even more useful when marshalling JSON</p>
+          </section>
+          <section>
+            <h2>struct methods</h2>
+            <pre><code>func (file *File) Write(b []byte) (n int, err error)</code></pre>
+            <p>Go doesn't have <i>this</i> or <i>self</i>, Go has an explicit receiver</p>
+          </section>
+          <section>
+            <h2>struct methods</h2>
+<pre><code>type Rectangle struct {
+    length, width int
+}
+
+func (r Rectangle) Area_by_value() int {
+    return r.length * r.width
+}
+
+func (r *Rectangle) Area_by_reference() int {
+    return r.length * r.width
+}</code></pre>
+          </section>
+          <section>
+            <h2>slices</h2>
           </section>
           <section>
             <h2>First-class functions</h2>
@@ -292,6 +321,7 @@ func main() {
   addFive()
   addFive()
 }</code></pre>
+          <small>plus closures and currying</small>
           </section>
           <section>
             <h2>Gofmt yourself</h2>
@@ -300,13 +330,14 @@ func main() {
         </section>
 
         <section>
-          <h1>Go is awesome</h1>
-          <p>Go try it </p>
+          <h1>Go forth<br/>and be excellent<br/>to each other</h1>
         </section>
 
         <section>
-          <h1>So long,<br/>and thanks<br/>for all the fish</h1>
-          <h3>References</h3>
+          <h1>Q && A</h1>
+          <br/>
+          <br/>
+          <h2>References</h2>
           <ul>
             <li><a href="//golang.org">golang.org</a>
             <li><a href="//tour.golang.org/">A Tour of Go</a>
