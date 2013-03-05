@@ -94,7 +94,7 @@
 
         <section>
           <section>
-            <h2>"Hello, world!"</h2>
+            <h2>A "Hello, world!"</h2>
 <pre><code>package main
 
 import "fmt"
@@ -165,7 +165,7 @@ str := "hello, world!"</code></pre>
           <p>Also, parens only when necessary</p>
           </section>
           <section>
-            <h2>Really f***ing clear types</h2>
+            <h2>Really clear numeric types</h2>
 <pre><code>uint8       all unsigned  8-bit integers (0 to 255)
 uint16      all unsigned 16-bit integers (0 to 65535)
 uint32      all unsigned 32-bit integers (0 to 4294967295)
@@ -220,10 +220,6 @@ import "code.google.com/p/project"
 import "launchpad.net/project"</code></pre>
           <p>Import directly from your repo, Go will figure it out</p>
           </section>
-          <section>
-            <h2>Gofmt yourself</h2>
-            <p>Forget about formatting your code.<br/>The computer will do it for you.</p>
-          </section>
         </section>
 
         <section>
@@ -255,14 +251,68 @@ func main() {
 <pre><code>file, err := os.Open("file.go")
 if err != nil {
   log.Fatal(err)
+  return err
 }
-defer file.close()
+defer file.Close()
 
 // other code
 
 return retval
 </code></pre>
           </section>
+          <section>
+            <h2>Clear exports</h2>
+            <p>Capitalized methods and values are public, lowercase private</p>
+            <p>Really useful when marshalling JSON</p>
+          </section>
+          <section>
+            <h2>Struct to JSON mapping</h2>
+<pre><code>type Person struct {
+  Id int           `json:"id"`
+  Name string      `json:"name"`
+  Animal string    `json:"animal"`
+}</code></pre>
+          <p>Even more useful when marshalling JSON</p>
+          </section>
+          <section>
+            <h2>First-class functions</h2>
+<pre><code>func adder(i int) func() int {
+  return func() int {
+    i += 5
+    fmt.Printf("%v\n", i);
+    return i
+  }
+}
+
+func main() {
+  addFive := adder(0)
+  addFive()
+  addFive()
+  addFive()
+  addFive()
+  addFive()
+}</code></pre>
+          </section>
+          <section>
+            <h2>Gofmt yourself</h2>
+            <p>Forget about formatting your code.<br/>The computer will do it for you.</p>
+          </section>
+        </section>
+
+        <section>
+          <h1>Go is awesome</h1>
+          <p>Go try it </p>
+        </section>
+
+        <section>
+          <h1>So long,<br/>and thanks<br/>for all the fish</h1>
+          <h3>References</h3>
+          <ul>
+            <li><a href="//golang.org">golang.org</a>
+            <li><a href="//tour.golang.org/">A Tour of Go</a>
+            <li><a href="//golang.org/doc/effective_go.html">Effective Go</a>
+            <li><a href="//groups.google.com/forum/?fromgroups#!forum/golang-nuts">#golang-nuts</a>
+          </ul>
         </section>
 
       </div>
