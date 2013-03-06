@@ -56,9 +56,10 @@
           <h2>Why is it?<br/>What is Go trying to accomplish?</h2>
           <ul>
             <li>Faster iteration, faster software development</li>
-            <li>Easy dependancy management</li>
-            <li>Should feel dynamic even though statically typed</li>
-            <li>Built in garbage collection and concurrency</li>
+            <li class="fragment">Easy dependancy management</li>
+            <li class="fragment">Should feel dynamic even though statically typed</li>
+            <li class="fragment">Built in garbage collection and concurrency</li>
+            <li class="fragment">Meant to replace C++ at Google</li>
           </ul>
         </section>
 
@@ -66,10 +67,11 @@
           <h2>Where is it?</h2>
           <ul>
             <li>Open sourced in November 2009
-            <li>Go 1 released March 2012
-            <li>Go 1 promised no backwards-incompatible point releases
-            <li>Strong standard library
-            <li>Great documentation
+            <li class="fragment">Go 1 released March 2012
+            <li class="fragment">Go 1 promised no backwards-incompatible point releases
+            <li class="fragment">Strong <a href="//golang.org/pkg/">standard library</a>
+            <li class="fragment">Great <a href="//golang.org/doc/">documentation</a>
+            <li class="fragment">Runs <a href="//dl.google.com">dl.google.com</a> for Chrome downloads
           </ul>
         </section>
 
@@ -279,7 +281,6 @@ return retval
   Name string      `json:"name"`
   Animal string    `json:"animal"`
 }</code></pre>
-          <p>Even more useful when marshalling JSON</p>
           </section>
           <section>
             <h2>struct methods</h2>
@@ -302,6 +303,11 @@ func (r *Rectangle) Area_by_reference() int {
           </section>
           <section>
             <h2>slices</h2>
+            <p>slices are an abstraction built on top of Go's array type</p>
+            <pre><code>b := []string{"Penn", "Teller"}</code></pre>
+            <aside class="notes">
+
+            </aside>
           </section>
           <section>
             <h2>First-class functions</h2>
