@@ -311,21 +311,18 @@ func (r *Rectangle) Area_by_reference() int {
           </section>
           <section>
             <h2>First-class functions</h2>
-<pre><code>func adder(i int) func() int {
-  return func() int {
-    i += 5
-    fmt.Printf("%v\n", i);
+<pre><code>func adder(i int) func(int) int {
+  return func(k int) int {
+    k += i
+    fmt.Printf("%v\n", k);
     return i
   }
 }
 
 func main() {
-  addFive := adder(0)
-  addFive()
-  addFive()
-  addFive()
-  addFive()
-  addFive()
+  addFive := adder(5)
+  addFive(7)
+  addFive(4)
 }</code></pre>
           <small>plus closures and currying</small>
           </section>
