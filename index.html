@@ -212,7 +212,7 @@ func main() {
 }
 </code></pre>
           <aside class="notes">
-            semi-colons are the line-terminator for Go but in most places they can be omitted, so I tend to just omit them until the compiler complains
+            semi-colons are the line-terminator for Go but in most places they can be omitted, so I tend to just omit them until the compiler complains there are strict rules
           </aside>
           </section>
           <section>
@@ -236,6 +236,9 @@ str := "hello, world!"</code></pre>
   // a while loop
 }</code></pre>
           <p>Also, parens only when necessary</p>
+          <aside class="notes">
+            So there's only one loop in Go, no while loops no do while loops no each loops, it's all just for loops. But for loops can be formatted as a normal C style for loop with an initialize, a comparison bool and a statement that runs before the loop. We get an each style loop that can loop over structs, arrays and slices, and a for loop without extra information that is essentially a while loop.
+          </aside>
           </section>
           <section>
             <h2>Really clear numeric types</h2>
@@ -259,6 +262,9 @@ rune        alias for int32</code></pre>
 <pre><code>uint     either 32 or 64 bits
 int      same size as uint
 uintptr</code></pre>
+          <aside class="notes">
+            We get really clear numeric types, we don't have C-style signed and unsigned separate keywords we don't have shorts, longs and doubles, the types describe themselves clearly. Other types in Go include Arrays, Slices, Strings, Structs, Pointers, Functions, Interfaces, Maps and Channels. I don't have time to talk about all of them.
+          </aside>
           </section>
           <section>
             <h2>multiple return values</h2>
@@ -268,6 +274,9 @@ if err != nil {
   return err
 }
 </code></pre>
+          <aside class="notes">
+            This is one of my favorite features of Go, multiple return values. You get a sort of destructuring you can find in other languages, but this is really useful for getting back a possible positive result but easily checking if there was an error and escaping.
+          </aside>
           </section>
           <section>
             <h2>fallthrough</h2>
@@ -283,6 +292,9 @@ switch i {
   case i == 3:
     fmt.PrintLn("exactly 3")
 }</code></pre>
+          <aside class="notes">
+            Fallthrough is something that I've always wanted. Why do we have all these breaks everywhere? We should just explicitly fallthrough instead of explicitly break.
+          </aside>
           </section>
           <section>
             <h2>Go knows about source control</h2>
@@ -297,20 +309,24 @@ import "launchpad.net/project"</code></pre>
           <h2>The blank identifier</h2>
 <pre><code>file, _ := file.Open("file.go")
 fmt.Printf("It probably worked ¯\_(ツ)_/¯");</code></pre>
-          <p class="fragment fade-out">Throw away those pesky errors</p>
-          <p class="fragment"><strong>Don't</strong> throw away those helpful errors</p>
-          <p class="fragment">handle your errors gracefully</p>
+          <p class="fragment">Handle your errors gracefully</p>
+          <aside class="notes">
+            We can use the blank identifier if we want to throw away values and not assign them to a variable. This is really useful in the case where you're looping over an array and only care about the values and not the indexes.
+          </aside>
+          </section>
+          <section>
+            <h2>Clear exports</h2>
+            <p>Capitalized methods and values are public, lowercase private</p>
+            <p>Really useful when marshalling JSON</p>
           </section>
         </section>
 
         <section>
           <section>
             <h1>The really awesome</h1>
-          </section>
-          <section>
-            <h2>Clear exports</h2>
-            <p>Capitalized methods and values are public, lowercase private</p>
-            <p>Really useful when marshalling JSON</p>
+            <aside class="notes">
+              Alright, some of the really awesome things.
+            </aside>
           </section>
           <section>
             <h2>Concurrency primatives</h2>
@@ -331,6 +347,12 @@ func main() {
   go even()
   odd()
 }</code></pre>
+          <aside class="notes">
+            Alright who wants to take a quick guess at what this function is going to do? (Wait for answer).
+            The go operator starts a funtion in a goroutine, which can be thought of as a lightweight thread. Now when I say lightweight I mean really light weight. One of the main implementors Rob Pike stated that at google there were some processes that had upwards of a million goroutines running in one process. So let's run the code and check it out.
+
+            We can see that both the odd and even functions are running at the same time but based on the number only one of them is going to print to standard out. There are specific constucts in Go for passing messages between goroutines and those are called channels but they are complicated to wrap your head around in just a few minutes so I've decided to leave them out of this talk.
+          </aside>
           </section>
           <section>
             <h2>Defer</h2>
@@ -345,40 +367,27 @@ defer file.Close()
 
 return retval
 </code></pre>
+          <aside class="notes">
+            Files need to be closed, and it's easy to forget to close a file at the end of a function. What if there was a language construct that handled this for you. I specify to defer closing the file. This effectively runs all deferred actions just before the return value. That's awesome, and it keeps file opening and file closing very close to each other.
+          </aside>
           </section>
           <section>
             <h2>Struct to JSON mapping</h2>
 <pre><code>type Person struct {
-  Id int           `json:"id"`
-  Name string      `json:"name"`
-  Animal string    `json:"animal"`
+  Id int                   `json:"id"`
+  Name string              `json:"name"`
+  FavoriteAnimal string    `json:"animal"`
 }</code></pre>
+          <aside class="notes">
+            JSON is everywhere, and it should be easy to convert object to exactly the JSON that we're looking for. This construct allows us to do this in a ridiculously simple manner. No separate functions that need to be called to transform keys. Whenever you use JSON.marshal on an object of this type the fields will be formatted as specified in the struct.
+          </aside>
           </section>
           <section>
             <h2>struct methods</h2>
             <pre><code>func (file *File) Write(b []byte) (n int, err error)</code></pre>
             <p>Go doesn't have <i>this</i> or <i>self</i>, Go has an explicit receiver</p>
-          </section>
-          <section>
-            <h2>struct methods</h2>
-<pre><code>type Rectangle struct {
-    length, width int
-}
-
-func (r Rectangle) Area_by_value() int {
-    return r.length * r.width
-}
-
-func (r *Rectangle) Area_by_reference() int {
-    return r.length * r.width
-}</code></pre>
-          </section>
-          <section>
-            <h2>slices</h2>
-            <p>slices are an abstraction built on top of Go's array type</p>
-            <pre><code>b := []string{"Penn", "Teller"}</code></pre>
             <aside class="notes">
-
+              This is the method signature employed by a File object, it's a function called on a pointer to a file, the method is a public Write method that accepts a slice of bytes, and has two return values, an int for the number of bytes written to the file and an error that will be returned as nil if the write was successful.
             </aside>
           </section>
           <section>
@@ -397,6 +406,9 @@ func main() {
   addFive(4) //  9
 }</code></pre>
           <small>plus closures and currying</small>
+          <aside class="notes">
+            First class functions are probably the most powerful thing about JavaScript a highly dynamic language. And they also exist in Go a statically typed language. First-class functions give us a lot of flexbility. Let's talk about what this code is doing. We have an adder function that takes an int and returns a function that accepts an int and returns an int. We can use this functionality to dynamically write methods. In this trivial example I create a method that adds five to another integer input.
+          </aside>
           </section>
         </section>
 
