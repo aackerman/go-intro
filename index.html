@@ -41,6 +41,9 @@
           <p>
             <small><a href="http://dissect.io">Aaron Ackerman</a> / <a href="http://twitter.com/_aaronackerman_">@_aaronackerman_</a></small>
           </p>
+          <aside class="notes">
+            I'm Aaron Ackerman, I've been with Code42 for about three months. I'm a developer on the Ruby team working on Office42 and other internal apps. We're going to be talking about Go today. Now, I haven't been working with Go for very long so I might not be able to answer all of your questions, and if you know anything about Go I might gloss over a few things.
+          </aside>
         </section>
 
         <section>
@@ -49,6 +52,9 @@
           <p>Started by Rob Pike and Ken Thompson</p>
           <p class="fragment">Ever heard of UTF-8? Those guys wrote it</p>
           <p class="fragment">Ken Thompson designed and implemented the original Unix</p>
+          <aside class="notes">
+            After decades of experience in software they decided to design a modern language to to handle some of the modern challenges of software engineering.
+          </aside>
         </section>
 
         <!-- Example of nested vertical slides -->
@@ -56,11 +62,14 @@
           <h2>Why is it?<br/>What is Go trying to accomplish?</h2>
           <ul>
             <li>Faster iteration, faster software development</li>
-            <li class="fragment">Easy dependancy management</li>
+            <li class="fragment">Easy dependency management</li>
             <li class="fragment">Should feel dynamic even though statically typed</li>
             <li class="fragment">Built in garbage collection and concurrency</li>
             <li class="fragment">Meant to replace C++ at Google</li>
           </ul>
+          <aside class="notes">
+            So why does Go exist, why not just use C, C++, or Java. Well what do we want for modern software development? We want to be agile, to write code fast and react to changes. We want easy dependency management. We want it to be very dynamic, have automatic garbage collection and concurrency. Go was meant to replace C++ as the main language of use at Google.
+          </aside>
         </section>
 
         <section>
@@ -73,16 +82,34 @@
             <li class="fragment">Great <a href="//golang.org/doc/">documentation</a>
             <li class="fragment">Runs <a href="//dl.google.com">dl.google.com</a> for Chrome downloads
           </ul>
+          <aside class="notes">
+            Go was open sourced in 2009 and hit one oh in March last year.
+
+            Go 1 promised no backwards-incompatible changes.
+
+            So all of APIs you write for in 1.0 will be available until 2.0.
+
+            A stong standard library. All of the standard library is written in Go. It's not written in C, so the standard libraries are great examples of Go code.
+
+             A few quick things about the standard library, built-in file archiving and compression, built-in crypto. Go file AST, parser, tokenizer and scanner in the STD lib. So in the standard library tools are already included for analyzing your Go source code.
+
+            And, really easy command line flag parsing.
+
+            Go has great documentation on golang.org and a lot of use and contribution to the mailing list. And at Google, Go is running dl.google.com for all Chrome downloads.
+          </aside>
         </section>
 
         <section>
           <section>
             <h2>I've installed PHP before...<br/><br/>Is this going to be a pain?</h2>
+            <aside class="notes">
+              I've spent hours of my life attempting to correctly compile PHP with all the necessary modules and all the necessary command line flags. I don't ever want to do that again.
+            </aside>
           </section>
           <section>
             <h2>Do you have 15 seconds?</h2>
             <p>
-              <a href="http://code.google.com/p/go/downloads/list">http://code.google.com/p/go/downloads/list</a>
+              <a href="http://code.google.com/p/go/downloads/list">code.google.com/p/go/downloads/list</a>
             </p>
             <ul>
               <li>Mac OSX
@@ -90,6 +117,37 @@
               <li>Linux
               <li>FreeBSD
             </ul>
+          </section>
+          <aside class="notes">
+            If you have fifteen seconds you can download a binary for your system. Mac has a standard package, and the same for Linux and Windows, or you can build from source. No more time spent building a binary, you get the binary and you build great software. The only language I've seen that was this easy to install is Node.
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h2>CLI tools</h2>
+          </section>
+          <section>
+            <h2>GOPATH</h2>
+            <p>Your GOPATH is where all of your Go source lives</p>
+            <pre><code>.
+├── bin
+├── pkg
+└── src
+    ├── package1
+    ├── package2
+    └── package3</code></pre>
+            <aside class="notes">
+              Your gopath has a is used to resolve imports and holds all of your source code and compiled binaries. You have bin, package, and src. Src holds your real source code, package holds installed package objects, and bin has your binaries. That's another thing that I haven't mentioned yet. To compile a package you would type `go install package-name`, it looks up your gopath in your source directory and looks for a package name. And when you install a package you get a single binary. So that means you don't even need to install a Go runtime on a machine that needs to run Go. Sounds easy right, single binary distribution, code doesn't need to be loaded into a VM, how can it be easier.
+            </aside>
+          </section>
+          <section>
+            <h2>Gofmt yourself</h2>
+            <pre><code>$ go fmt file.go</code></pre>
+            <p>Forget about formatting your code.<br/>The computer will do it for you.</p>
+            <aside class="notes">
+              I know the Java team has a tool for automatically formatting code. Go has `gofmt`, it takes a go source file and gives you back idiomatically formatted Go source code. All of the standard library has been run through `gofmt`. No more commits containing semantic formatting changes, no more arguments about newlines and spacing the decision has been made for you.
+            </aside>
           </section>
         </section>
 
@@ -104,6 +162,9 @@ func main() {
   fmt.Println("Hello, world!")
 }
 </code></pre>
+          <aside class="notes">
+            So a few basic things. Specify a package, import the "fmt" library for string formatting and we have a main function as the entrance function. Just a standard print line standard out.
+          </aside>
           </section>
           <section>
             <h2>A real "Hello, world!"</h2>
@@ -121,12 +182,18 @@ func main() {
   http.ListenAndServe(":8000", nil)
 }
 </code></pre>
+          <aside class="notes">
+            This is more of a hello world in my opinion, some that actually requires a network connection. We import net http and we get access to the standard http library. So there's a little bit of magic under the covers here, http.HandleFunc and http.ListenAndServe both attach to a Default Serve Mux which is an http multiplexer. This let's us get away with such a small server.
+          </aside>
           </section>
         </section>
 
         <section>
           <section>
             <h1>The awesome</h1>
+            <aside class="notes">
+              So let's talk about some more of the awesome parts of Go
+            </aside>
           </section>
           <section>
             <h2>semi-colons<br/> only when absolutely necessary</h2>
@@ -144,13 +211,18 @@ func main() {
   http.ListenAndServe(":8000", nil)
 }
 </code></pre>
+          <aside class="notes">
+            semi-colons are the line-terminator for Go but in most places they can be omitted, so I tend to just omit them until the compiler complains
+          </aside>
           </section>
           <section>
             <h2>short assignment</h2>
 <pre><code>i := 64
 f := 3.14
 str := "hello, world!"</code></pre>
-          <p>compiler type inference FTW!</p>
+          <aside class="notes">
+            We can use the short assignment operator the colon equals and we don't need to be explicit about a type and the compiler will infer the type at compile time.
+          </aside>
           </section>
           <section>
             <h2>only one loop</h2>
@@ -321,14 +393,10 @@ func (r *Rectangle) Area_by_reference() int {
 
 func main() {
   addFive := adder(5)
-  addFive(7)
-  addFive(4)
+  addFive(7) // 12
+  addFive(4) //  9
 }</code></pre>
           <small>plus closures and currying</small>
-          </section>
-          <section>
-            <h2>Gofmt yourself</h2>
-            <p>Forget about formatting your code.<br/>The computer will do it for you.</p>
           </section>
         </section>
 
